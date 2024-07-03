@@ -1,0 +1,8 @@
+.text_align {
+  text-align: center;
+}
+
+.center_div {
+  margin: auto;
+  text-align: center;
+}
