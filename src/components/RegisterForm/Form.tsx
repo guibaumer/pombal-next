@@ -13,6 +13,8 @@ export default function Form(): JSX.Element {
   const [anilha, setAnilha] = useState('');
   const [photo, setPhoto] = useState<File>();
   const [loading, setLoading] = useState(false);
+  const [anilhaFather, setAnilhaFather] = useState('');
+  const [anilhaMother, setAnilhaMother] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -20,10 +22,13 @@ export default function Form(): JSX.Element {
     setLoading(true);
 
     if (anilha && photo) {
-      if (validateValues({ anilha, photo })) {
+      if (validateValues({ anilha, photo, anilhaFather, anilhaMother })) {
         const formData = new FormData();
         formData.append('photo', photo);
         formData.append('anilha', anilha);
+
+        if (anilhaFather) formData.append('anilhaFather', anilhaFather);
+        if (anilhaMother) formData.append('anilhaMother', anilhaMother);
 
         try {
           const response = await fetch(`${API_URL}/pigeon`, {
@@ -61,13 +66,23 @@ export default function Form(): JSX.Element {
     setLoading(false);
   };
 
-  const validateValues = ({ anilha, photo }: ReqData): boolean => {
+  const validateValues = ({
+    anilha,
+    photo,
+    anilhaFather,
+    anilhaMother,
+  }: ReqData): boolean => {
     const allowedExt = ['.jpg', '.jpeg', '.png'];
     const errors = [];
 
     if (anilha.length < 3 || anilha.length > 15) {
-      errors.push('Anilha deve ter entre 3 caracteres e 15 caracteres.');
+      errors.push('Anilha deve ter entre 3 caracteres e 15 caracteres');
     }
+
+    if (anilhaFather && anilhaFather.length > 15)
+      errors.push('Anilha não pode ter mais de 15 caracteres');
+    if (anilhaMother && anilhaMother.length > 15)
+      errors.push('Anilha não pode ter mais de 15 caracteres');
 
     if (!allowedExt.includes(path.extname(photo.name))) {
       errors.push('Tipo de arquivo não suportado');
@@ -100,6 +115,28 @@ export default function Form(): JSX.Element {
             value={anilha}
             onChange={(e) => {
               setAnilha(e.target.value);
+            }}
+          />
+        </p>
+        <p className={styles.form_p}>
+          <input
+            type="text"
+            placeholder="Anilha do pai"
+            className={styles.input}
+            value={anilhaFather}
+            onChange={(e) => {
+              setAnilhaFather(e.target.value);
+            }}
+          />
+        </p>
+        <p className={styles.form_p}>
+          <input
+            type="text"
+            placeholder="Anilha da mãe"
+            className={styles.input}
+            value={anilhaMother}
+            onChange={(e) => {
+              setAnilhaMother(e.target.value);
             }}
           />
         </p>

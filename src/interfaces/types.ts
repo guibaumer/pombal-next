@@ -11,6 +11,8 @@ export type Response = Message & Errors;
 export type ReqData = {
   anilha: string;
   photo: File;
+  anilhaFather: string;
+  anilhaMother: string;
 };
 
 export type PigeonType = {
