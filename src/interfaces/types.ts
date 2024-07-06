@@ -23,7 +23,9 @@ export type PigeonType = {
 export type Pigeon = {
   anilha: string;
   foto_path: string;
-  createdAt: string;
+  created_at: string;
+  father_anilha: string;
+  mother_anilha: string;
 };
 
 export type PigeonArray = Pigeon[];

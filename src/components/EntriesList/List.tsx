@@ -3,6 +3,7 @@
 import { type PigeonArray } from '@/interfaces/types';
 import styles from './styles.module.css';
 import { useState } from 'react';
+import Link from 'next/link';
 
 type ListProps = {
   pigeons: PigeonArray;
@@ -23,7 +24,9 @@ export default function List({ pigeons }: ListProps): JSX.Element {
         <tbody>
           {pigeons.map((pigeon) => (
             <tr key={pigeon.anilha}>
-              <td>{pigeon.anilha}</td>
+              <td>
+                <Link href={'pigeon/' + pigeon.anilha}>{pigeon.anilha}</Link>
+              </td>
               <td>
                 <img
                   src={pigeon.foto_path}

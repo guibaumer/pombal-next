@@ -1,0 +1,32 @@
+.container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 3%;
+}
+
+.img {
+  border-radius: 5px;
+  width: 100%;
+}
+
+.p {
+  width: 95%;
+  max-width: 400px;
+  margin: 5px;
+}
+
+.parent {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.inner_div {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 10px;
+}

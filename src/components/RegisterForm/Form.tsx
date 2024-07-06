@@ -121,7 +121,7 @@ export default function Form(): JSX.Element {
         <p className={styles.form_p}>
           <input
             type="text"
-            placeholder="Anilha do pai"
+            placeholder="Anilha do pai (opcional)"
             className={styles.input}
             value={anilhaFather}
             onChange={(e) => {
@@ -132,7 +132,7 @@ export default function Form(): JSX.Element {
         <p className={styles.form_p}>
           <input
             type="text"
-            placeholder="Anilha da mãe"
+            placeholder="Anilha da mãe (opcional)"
             className={styles.input}
             value={anilhaMother}
             onChange={(e) => {
