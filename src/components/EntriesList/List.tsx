@@ -18,6 +18,7 @@ export default function List({ pigeons }: ListProps): JSX.Element {
         <thead>
           <tr>
             <th>N° ANILHA</th>
+            <th>SEXO</th>
             <th>FOTO</th>
           </tr>
         </thead>
@@ -25,11 +26,20 @@ export default function List({ pigeons }: ListProps): JSX.Element {
           {pigeons.map((pigeon) => (
             <tr key={pigeon.anilha}>
               <td>
-                <Link href={'pigeon/' + pigeon.anilha}>{pigeon.anilha}</Link>
+                <div className={styles.td}>
+                  <Link href={'pigeon/' + pigeon.anilha}>{pigeon.anilha}</Link>{' '}
+                </div>
               </td>
-              <td>
+
+              <td className={styles.td_sex}>
+                {(pigeon.sex === 'F' && 'Fêmea') ||
+                  (pigeon.sex === 'M' && 'Macho') ||
+                  'Não Registrado'}
+              </td>
+
+              <td className={styles.td_img}>
                 <img
-                  src={pigeon.foto_path}
+                  src={pigeon.foto_path || '/default-image.jpg'}
                   width={60}
                   height={60}
                   alt="imagem de um pombo"

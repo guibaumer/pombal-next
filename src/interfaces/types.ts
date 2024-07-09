@@ -10,9 +10,10 @@ export type Response = Message & Errors;
 
 export type ReqData = {
   anilha: string;
-  photo: File;
+  photo: File | undefined;
   anilhaFather: string;
   anilhaMother: string;
+  sex: string;
 };
 
 export type PigeonType = {
@@ -21,11 +22,13 @@ export type PigeonType = {
 };
 
 export type Pigeon = {
+  id: string;
   anilha: string;
   foto_path: string;
   created_at: string;
   father_anilha: string;
   mother_anilha: string;
+  sex: string;
 };
 
 export type PigeonArray = Pigeon[];

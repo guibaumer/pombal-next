@@ -12,7 +12,7 @@ export default function Container({ pigeon }: ContainerProps): JSX.Element {
     <section className={styles.container}>
       <p className={styles.p}>
         <img
-          src={pigeon.foto_path}
+          src={pigeon.foto_path || '/default-image.jpg'}
           className={styles.img}
           alt="imagem de um pombo"
         />
@@ -47,6 +47,9 @@ export default function Container({ pigeon }: ContainerProps): JSX.Element {
             </p>
           </div>
         </div>
+      </p>
+      <p>
+        <Link href={'/edit/' + pigeon.anilha}>EDITAR</Link>
       </p>
     </section>
   );

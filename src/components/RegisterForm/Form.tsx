@@ -5,34 +5,58 @@ import styles from './styles.module.css';
 import { type FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../config/app-config';
-import { type Response, type Message, type ReqData } from '@/interfaces/types';
+import {
+  type Response,
+  type Message,
+  type ReqData,
+  type Pigeon,
+} from '@/interfaces/types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-export default function Form(): JSX.Element {
+type FormParams = {
+  data?: Pigeon;
+};
+
+export default function Form({ data }: FormParams): JSX.Element {
   const [anilha, setAnilha] = useState('');
   const [photo, setPhoto] = useState<File>();
+  const [actualPhoto, setActualPhoto] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [anilhaFather, setAnilhaFather] = useState('');
   const [anilhaMother, setAnilhaMother] = useState('');
+  const [sex, setSex] = useState<string>('M');
+  const [id, setId] = useState<string>('');
   const router = useRouter();
+
+  useState(() => {
+    if (data) {
+      setAnilha(data.anilha);
+      setActualPhoto(data.foto_path);
+      setAnilhaFather(data.father_anilha);
+      setAnilhaMother(data.mother_anilha);
+      setSex(data.sex);
+      setId(data.id);
+    }
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setLoading(true);
 
-    if (anilha && photo) {
-      if (validateValues({ anilha, photo, anilhaFather, anilhaMother })) {
+    if (anilha && sex) {
+      if (validateValues({ anilha, photo, anilhaFather, anilhaMother, sex })) {
         const formData = new FormData();
-        formData.append('photo', photo);
         formData.append('anilha', anilha);
-
+        formData.append('sex', sex);
+        if (id) formData.append('id', id);
+        if (photo) formData.append('photo', photo);
         if (anilhaFather) formData.append('anilhaFather', anilhaFather);
         if (anilhaMother) formData.append('anilhaMother', anilhaMother);
 
         try {
           const response = await fetch(`${API_URL}/pigeon`, {
-            method: 'POST',
+            method: data ? 'PUT' : 'POST',
             body: formData,
           });
 
@@ -71,6 +95,7 @@ export default function Form(): JSX.Element {
     photo,
     anilhaFather,
     anilhaMother,
+    sex,
   }: ReqData): boolean => {
     const allowedExt = ['.jpg', '.jpeg', '.png'];
     const errors = [];
@@ -84,8 +109,12 @@ export default function Form(): JSX.Element {
     if (anilhaMother && anilhaMother.length > 15)
       errors.push('Anilha não pode ter mais de 15 caracteres');
 
-    if (!allowedExt.includes(path.extname(photo.name))) {
+    if (photo && !allowedExt.includes(path.extname(photo.name))) {
       errors.push('Tipo de arquivo não suportado');
+    }
+
+    if (sex !== 'M' && sex !== 'F') {
+      errors.push('Indique se o pombo é macho ou fêmea');
     }
 
     if (errors[0]) {
@@ -112,18 +141,32 @@ export default function Form(): JSX.Element {
             type="text"
             placeholder="Número da anilha"
             className={styles.input}
-            value={anilha}
+            value={anilha || ''}
             onChange={(e) => {
               setAnilha(e.target.value);
             }}
           />
         </p>
         <p className={styles.form_p}>
+          <select
+            className={styles.input}
+            name="cars"
+            id="cars"
+            onChange={(e) => {
+              setSex(e.target.value);
+            }}
+            value={sex || ''}
+          >
+            <option value="M">Macho</option>
+            <option value="F">Fêmea</option>
+          </select>
+        </p>
+        <p className={styles.form_p}>
           <input
             type="text"
             placeholder="Anilha do pai (opcional)"
             className={styles.input}
-            value={anilhaFather}
+            value={anilhaFather || ''}
             onChange={(e) => {
               setAnilhaFather(e.target.value);
             }}
@@ -134,7 +177,7 @@ export default function Form(): JSX.Element {
             type="text"
             placeholder="Anilha da mãe (opcional)"
             className={styles.input}
-            value={anilhaMother}
+            value={anilhaMother || ''}
             onChange={(e) => {
               setAnilhaMother(e.target.value);
             }}
@@ -155,6 +198,7 @@ export default function Form(): JSX.Element {
         </p>
         {photo && (
           <>
+            <p>FOTO SELECIONADA:</p>
             <p className={styles.form_p}>
               <Image
                 src={URL.createObjectURL(photo)}
@@ -162,6 +206,14 @@ export default function Form(): JSX.Element {
                 height={200}
                 alt="Selected"
               />
+            </p>
+          </>
+        )}
+        {actualPhoto && (
+          <>
+            <p>FOTO UTILIZADA:</p>
+            <p className={styles.form_p}>
+              <img src={actualPhoto} width={200} height={200} alt="Selected" />
             </p>
           </>
         )}

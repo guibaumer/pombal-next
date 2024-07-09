@@ -16,19 +16,24 @@ export default function Homepage(): JSX.Element {
   useEffect(() => {
     async function getEntries(): Promise<void> {
       setLoading(true);
-      const res = await fetch(`${API_URL}/pigeon/`);
-      const data = await res.json();
+      try {
+        const res = await fetch(`${API_URL}/pigeon`);
+        const data = await res.json();
 
-      if (!res.ok) {
-        const { error }: { error: string } = data;
-        toast.error(error);
+        if (!res.ok) {
+          const { error }: { error: string } = data;
+          toast.error(error);
+          setLoading(false);
+        }
+
+        const { entries }: { entries: PigeonArray } = data;
+        console.log(entries);
+        setPigeons(entries);
         setLoading(false);
+      } catch (err) {
+        console.log(err);
+        toast.error('Erro');
       }
-
-      const { entries }: { entries: PigeonArray } = data;
-      console.log(entries);
-      setPigeons(entries);
-      setLoading(false);
     }
 
     // eslint-disable-next-line
