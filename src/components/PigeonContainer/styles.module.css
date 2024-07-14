@@ -18,6 +18,14 @@
   margin: 5px;
 }
 
+.div {
+  width: 95%;
+  max-width: 400px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .parent {
   display: flex;
   margin-bottom: 10px;

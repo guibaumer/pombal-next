@@ -3,6 +3,7 @@
 import { API_URL } from '@/config/app-config';
 import { type Message } from '@/interfaces/types';
 import { useEffect, useState } from 'react';
+import styles from './styles.module.css';
 
 type PhotoProps = {
   anilha: string;
@@ -10,8 +11,6 @@ type PhotoProps = {
 
 export default function Photo({ anilha }: PhotoProps): JSX.Element {
   const [url, setUrl] = useState('');
-
-  console.log('ANILHA ' + anilha);
 
   useEffect(() => {
     async function getPhoto(): Promise<void> {
@@ -47,7 +46,7 @@ export default function Photo({ anilha }: PhotoProps): JSX.Element {
 
   return (
     <img
-      style={{ width: '80px', height: '80px', borderRadius: '50%' }}
+      className={styles.img}
       src={url || '/default-image.jpg'}
       alt="foto de pombo"
     />

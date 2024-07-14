@@ -6,6 +6,10 @@ export type Errors = {
   errors: string[];
 };
 
+export type Error = {
+  error: string;
+};
+
 export type Response = Message & Errors;
 
 export type ReqData = {
