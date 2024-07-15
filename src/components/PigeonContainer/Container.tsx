@@ -87,8 +87,11 @@ export default function Container({ pigeon }: ContainerProps): JSX.Element {
         <Offspring parentAnilha={pigeon.anilha} sex={pigeon.sex} />
       </p>
       <p className={styles.div}>
-        <Link href={'/edit/' + pigeon.anilha}>EDITAR</Link>
+        <button className={`${styles.button} ${styles.edit}`} type="button">
+          <Link href={'/edit/' + pigeon.anilha}>EDITAR</Link>
+        </button>
         <button
+          className={`${styles.button} ${styles.delete}`}
           type="button"
           onClick={() => {
             // eslint-disable-next-line

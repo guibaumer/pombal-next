@@ -9,6 +9,7 @@
 .table td {
   border: 1px solid #000;
   padding: 3px;
+  vertical-align: middle;
 }
 
 .td_img {
@@ -58,4 +59,15 @@
 
 td.td_sex {
   padding: 3px 8px;
+}
+
+.pigeon_img {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+}
+
+.a {
+  text-decoration: underline;
+  color: rgb(0, 95, 0);
 }

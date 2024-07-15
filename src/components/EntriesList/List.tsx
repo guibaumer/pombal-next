@@ -27,7 +27,9 @@ export default function List({ pigeons }: ListProps): JSX.Element {
             <tr key={pigeon.anilha}>
               <td>
                 <div className={styles.td}>
-                  <Link href={'pigeon/' + pigeon.anilha}>{pigeon.anilha}</Link>{' '}
+                  <Link className={styles.a} href={'pigeon/' + pigeon.anilha}>
+                    {pigeon.anilha}
+                  </Link>
                 </div>
               </td>
 
@@ -40,8 +42,7 @@ export default function List({ pigeons }: ListProps): JSX.Element {
               <td className={styles.td_img}>
                 <img
                   src={pigeon.foto_path || '/default-image.jpg'}
-                  width={60}
-                  height={60}
+                  className={styles.pigeon_img}
                   alt="imagem de um pombo"
                   onClick={() => {
                     setImageToShow(pigeon.foto_path);

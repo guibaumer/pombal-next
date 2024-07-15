@@ -5,6 +5,7 @@ import Container from '@/components/PigeonContainer/Container';
 import { API_URL } from '@/config/app-config';
 import { type Pigeon, type Message } from '@/interfaces/types';
 import { useEffect, useState } from 'react';
+import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 
 export default function Page({
@@ -54,7 +55,12 @@ export default function Page({
     getData();
   }, []);
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading)
+    return (
+      <p className="loading">
+        <ClipLoader loading={loading} />
+      </p>
+    );
 
   if (pigeon) {
     return (

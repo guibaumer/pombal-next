@@ -38,3 +38,25 @@
   flex-direction: column;
   margin-left: 10px;
 }
+
+.button {
+  text-decoration: none;
+  border: 0;
+  background-color: red;
+  /* font-size: 1.875rem; */
+  width: 100px;
+  height: 35px;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 1.125rem;
+}
+
+.edit {
+  color: #000;
+  background-color: #dcdcdc;
+}
+
+.delete {
+  color: #fff;
+  background-color: #ff4f4f;
+}

@@ -55,11 +55,13 @@ export default function Offspring({
     <>
       <h2>FILHOS</h2>
       <section className={styles.section}>
-        {offspring?.length
-          ? offspring.map((pigeon) => (
-              <Container key={pigeon.anilha} sex={sex} pigeon={pigeon} />
-            ))
-          : 'Vazio'}
+        {offspring?.length ? (
+          offspring.map((pigeon) => (
+            <Container key={pigeon.anilha} sex={sex} pigeon={pigeon} />
+          ))
+        ) : (
+          <p className="text_align">Nenhum filho registrado.</p>
+        )}
       </section>
     </>
   );
