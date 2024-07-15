@@ -2,7 +2,7 @@
 
 import path from 'path';
 import styles from './styles.module.css';
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { API_URL } from '../../config/app-config';
 import {
@@ -29,7 +29,7 @@ export default function Form({ data }: FormParams): JSX.Element {
   const [id, setId] = useState<string>('');
   const router = useRouter();
 
-  useState(() => {
+  useEffect(() => {
     if (data) {
       setAnilha(data.anilha);
       setActualPhoto(data.foto_path);
