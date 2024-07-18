@@ -1,5 +1,5 @@
-import Homepage from '@/containers/Homepage/Homepage';
+import Search from '@/containers/Search/Search';
 
 export default function Home(): JSX.Element {
-  return <Homepage />;
+  return <Search />;
 }

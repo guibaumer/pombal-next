@@ -1,3 +1,5 @@
+'use client';
+
 import { type Error, type Message, type Pigeon } from '@/interfaces/types';
 import Photo from '../ParentsPhoto/Photo';
 import styles from './styles.module.css';

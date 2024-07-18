@@ -1,0 +1,14 @@
+.centralized_error {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.link {
+  display: block;
+  margin: 10px auto;
+  background-color: #bbb;
+  border-radius: 3px;
+  padding: 2px;
+  width: 80px;
+  text-align: center;
+}

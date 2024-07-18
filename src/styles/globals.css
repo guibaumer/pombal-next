@@ -39,3 +39,9 @@ h2 {
   text-align: center;
   margin-top: 10%;
 }
+
+.loading_div {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
