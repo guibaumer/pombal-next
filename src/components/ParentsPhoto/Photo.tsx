@@ -4,6 +4,7 @@ import { API_URL } from '@/config/app-config';
 import { type Message } from '@/interfaces/types';
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
+import { toast } from 'react-toastify';
 
 type PhotoProps = {
   anilha: string;
@@ -27,6 +28,12 @@ export default function Photo({ anilha }: PhotoProps): JSX.Element {
 
         if (!response.ok) {
           const { message }: Message = await response.json();
+
+          if (response.status === 500) {
+            toast.error(message);
+            return;
+          }
+
           console.log(message);
         } else {
           const { path }: { path: { foto_path: string } } =
@@ -34,6 +41,7 @@ export default function Photo({ anilha }: PhotoProps): JSX.Element {
           setUrl(path.foto_path);
         }
       } catch (err) {
+        console.log('HERREeeee');
         console.log(err);
       }
     }
@@ -42,8 +50,6 @@ export default function Photo({ anilha }: PhotoProps): JSX.Element {
     getPhoto();
   }, []);
 
-  console.log(url);
-
   return (
     <img
       className={styles.img}
@@ -51,5 +57,4 @@ export default function Photo({ anilha }: PhotoProps): JSX.Element {
       alt="foto de pombo"
     />
   );
-  // return <p>dd</p>;
 }

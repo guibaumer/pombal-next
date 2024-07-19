@@ -1,0 +1,48 @@
+.delete_button {
+  text-decoration: none;
+  border: 0;
+  width: 100px;
+  height: 35px;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 1.125rem;
+  color: #fff;
+  background-color: #ff4f4f;
+}
+
+.hidden_div {
+  position: fixed;
+  z-index: 1;
+  background-color: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 4px #000;
+  width: 90%;
+  max-width: 280px;
+  height: 180px;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.input {
+  height: 30px;
+  padding-left: 4px;
+  font-size: 1.125rem;
+}
+
+.button {
+  height: 30px;
+  font-size: 1.125rem;
+  margin-top: 10px;
+  padding: 4px;
+}
+
+.label {
+  display: block;
+  font-size: 1.125rem;
+  padding: 5px 0px;
+}

@@ -1,0 +1,20 @@
+.rotate {
+  width: 30px;
+}
+
+.form {
+  width: 229px;
+  display: flex;
+  margin: auto;
+  justify-content: flex-end;
+}
+
+.button {
+  background: none;
+  border: none;
+  margin-bottom: 3px;
+}
+
+.button:hover {
+  cursor: pointer;
+}

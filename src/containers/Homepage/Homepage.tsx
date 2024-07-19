@@ -72,14 +72,20 @@ import { API_URL } from '@/config/app-config';
 import { type PigeonArray } from '@/interfaces/types';
 import styles from './styles.module.css';
 import Error from '@/components/Error/Error';
+import ReloadButton from '@/components/ReloadButton/Button';
 
 export default async function Homepage(): Promise<JSX.Element> {
   let list;
   let error;
 
   try {
-    const res = await fetch(`${API_URL}/pigeon`);
+    console.log('FETCHING DATA');
+    const res = await fetch(`${API_URL}/pigeon`, {
+      next: { tags: ['pigeons_data'] },
+    });
     const data = await res.json();
+
+    console.log(data);
 
     if (!res.ok) {
       const { error: er }: { error: string } = data;
@@ -99,7 +105,10 @@ export default async function Homepage(): Promise<JSX.Element> {
       <h1>POMBAL - REGISTROS</h1>
       {!error &&
         (list ? (
-          <List pigeons={list} />
+          <>
+            <ReloadButton />
+            <List pigeons={list} />
+          </>
         ) : (
           <p className={styles.text_align}>Adicione registros.</p>
         ))}

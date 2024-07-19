@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { type Pigeon } from '../../interfaces/types';
 import Photo from '../ParentsPhoto/Photo';
@@ -25,7 +27,11 @@ export default function Container({
   return (
     <div className={styles.container}>
       <div className={styles.container}>
-        <img src={pigeon.foto_path} alt="pombo" className={styles.image} />
+        <img
+          src={pigeon.foto_path || '/default-image.jpg'}
+          alt="pombo"
+          className={styles.image}
+        />
         <div>
           <h4>Anilha:</h4>
           <p>{pigeon.anilha}</p>

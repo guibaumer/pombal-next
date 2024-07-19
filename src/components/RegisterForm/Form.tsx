@@ -12,7 +12,7 @@ import {
   type Pigeon,
 } from '@/interfaces/types';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { revalidatePigeonsAndReturn } from '@/actions/actions';
 
 type FormParams = {
   data?: Pigeon;
@@ -27,7 +27,6 @@ export default function Form({ data }: FormParams): JSX.Element {
   const [anilhaMother, setAnilhaMother] = useState('');
   const [sex, setSex] = useState<string>('M');
   const [id, setId] = useState<string>('');
-  const router = useRouter();
 
   useEffect(() => {
     if (data) {
@@ -67,16 +66,13 @@ export default function Form({ data }: FormParams): JSX.Element {
               errors.forEach((error: string) => {
                 toast.error(error);
               });
-              return;
+            } else if (response.status === 500) {
+              toast.error(message);
             }
-
-            toast.error(message);
           } else {
             const { message }: Message = await response.json();
-            console.log(response);
-            console.log(message);
             toast.success(message);
-            router.push('/');
+            await revalidatePigeonsAndReturn();
           }
         } catch (err) {
           toast.error('Erro. Tente novamente mais tarde.');
@@ -149,9 +145,8 @@ export default function Form({ data }: FormParams): JSX.Element {
         </p>
         <p className={styles.form_p}>
           <select
+            title="male_female"
             className={styles.input}
-            name="cars"
-            id="cars"
             onChange={(e) => {
               setSex(e.target.value);
             }}

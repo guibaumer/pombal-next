@@ -1,47 +1,15 @@
-'use client';
-
-import { type Error, type Message, type Pigeon } from '@/interfaces/types';
+import { type Pigeon } from '@/interfaces/types';
 import Photo from '../ParentsPhoto/Photo';
 import styles from './styles.module.css';
 import Link from 'next/link';
 import Offspring from '../Offspring/Offspring';
-import { toast } from 'react-toastify';
-import { API_URL } from '@/config/app-config';
-import { useRouter } from 'next/navigation';
+import DeleteButton from '../DeleteButton/Button';
 
 type ContainerProps = {
   pigeon: Pigeon;
 };
 
 export default function Container({ pigeon }: ContainerProps): JSX.Element {
-  const router = useRouter();
-
-  const handleDeletePigeon = async (anilha: string): Promise<void> => {
-    try {
-      const response = await fetch(API_URL + '/pigeon/delete-pigeon', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ anilha }),
-      });
-      const data = await response.json();
-
-      if (!response.ok) {
-        const { error }: Error = data;
-        toast.error(error);
-        return;
-      }
-
-      const { message }: Message = data;
-      toast.success(message);
-      router.push('/');
-    } catch (err) {
-      console.log(err);
-      toast.error('Não foi possível deletar');
-    }
-  };
-
   return (
     <section className={styles.container}>
       <p className={styles.p}>
@@ -51,11 +19,11 @@ export default function Container({ pigeon }: ContainerProps): JSX.Element {
           alt="imagem de um pombo"
         />
       </p>
-      <p className={styles.div}>
-        <p>ANILHA: {pigeon.anilha}</p>
-        <p>{pigeon.sex === 'F' ? 'Fêmea' : 'Macho'}</p>
-      </p>
-      <p className={styles.p}>
+      <div className={styles.div}>
+        <div>ANILHA: {pigeon.anilha}</div>
+        <div>{pigeon.sex === 'F' ? 'Fêmea' : 'Macho'}</div>
+      </div>
+      <div className={styles.p}>
         <div className={styles.parent}>
           <Photo anilha={pigeon.father_anilha} />
           <div className={styles.inner_div}>
@@ -84,25 +52,17 @@ export default function Container({ pigeon }: ContainerProps): JSX.Element {
             </p>
           </div>
         </div>
-      </p>
-      <p className={styles.p}>
+      </div>
+      <div className={styles.p}>
         <Offspring parentAnilha={pigeon.anilha} sex={pigeon.sex} />
-      </p>
-      <p className={styles.div}>
+      </div>
+      <div className={styles.div}>
         <button className={`${styles.button} ${styles.edit}`} type="button">
           <Link href={'/edit/' + pigeon.anilha}>EDITAR</Link>
         </button>
-        <button
-          className={`${styles.button} ${styles.delete}`}
-          type="button"
-          onClick={() => {
-            // eslint-disable-next-line
-            handleDeletePigeon(pigeon.anilha);
-          }}
-        >
-          DELETAR
-        </button>
-      </p>
+
+        <DeleteButton anilha={pigeon.anilha} />
+      </div>
     </section>
   );
 }
