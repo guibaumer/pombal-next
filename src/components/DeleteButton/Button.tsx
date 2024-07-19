@@ -75,7 +75,7 @@ export default function DeleteButton({ anilha }: ButtonProps): JSX.Element {
               Insira a senha excluir o registro:
             </label>
             <input
-              type="text"
+              type="password"
               id="input"
               onChange={(e) => {
                 setPassword(e.target.value);
