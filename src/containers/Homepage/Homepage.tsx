@@ -73,9 +73,11 @@ import { type PigeonArray } from '@/interfaces/types';
 import styles from './styles.module.css';
 import Error from '@/components/Error/Error';
 import ReloadButton from '@/components/ReloadButton/Button';
+import Counter from '@/components/Counter/Counter';
 
 export default async function Homepage(): Promise<JSX.Element> {
   let list;
+  let total;
   let error;
 
   try {
@@ -85,7 +87,7 @@ export default async function Homepage(): Promise<JSX.Element> {
     });
     const data = await res.json();
 
-    console.log(data);
+    // console.log(data);
 
     if (!res.ok) {
       const { error: er }: { error: string } = data;
@@ -93,7 +95,9 @@ export default async function Homepage(): Promise<JSX.Element> {
     }
 
     const { entries }: { entries: PigeonArray } = data;
+    const length = entries.length;
     list = entries;
+    total = length;
   } catch (err) {
     console.log(err);
     error = 'Erro ao buscar dados';
@@ -102,11 +106,12 @@ export default async function Homepage(): Promise<JSX.Element> {
   return (
     <>
       <Header />
-      <h1>POMBAL - REGISTROS</h1>
+      <h1>POMBAL SERRA VERDE</h1>
       {!error &&
         (list ? (
           <>
             <ReloadButton />
+            {total ? <Counter length={total} /> : 'ZERO'}
             <List pigeons={list} />
           </>
         ) : (

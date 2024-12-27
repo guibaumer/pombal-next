@@ -5,7 +5,7 @@ export default function Header(): JSX.Element {
   return (
     <header className={styles.header}>
       <Link href={'/'}>
-        <img className={styles.image} src="/pombo-desenhado.png" alt="pombo" />
+        <img className={styles.image} src="/pombo-5.png" alt="pombo" />
       </Link>
 
       <nav>
