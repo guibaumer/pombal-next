@@ -18,6 +18,7 @@ export type ReqData = {
   anilhaFather: string;
   anilhaMother: string;
   sex: string;
+  description: string;
 };
 
 export type PigeonType = {
@@ -33,6 +34,7 @@ export type Pigeon = {
   father_anilha: string;
   mother_anilha: string;
   sex: string;
+  description: string;
 };
 
 export type PigeonArray = Pigeon[];

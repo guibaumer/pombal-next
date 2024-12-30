@@ -13,6 +13,7 @@ import {
 } from '@/interfaces/types';
 import Image from 'next/image';
 import { revalidatePigeonsAndReturn } from '@/actions/actions';
+// import { deserialize } from 'v8';
 
 type FormParams = {
   data?: Pigeon;
@@ -27,6 +28,7 @@ export default function Form({ data }: FormParams): JSX.Element {
   const [anilhaMother, setAnilhaMother] = useState('');
   const [sex, setSex] = useState<string>('M');
   const [id, setId] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
   useEffect(() => {
     if (data) {
@@ -36,6 +38,7 @@ export default function Form({ data }: FormParams): JSX.Element {
       setAnilhaMother(data.mother_anilha);
       setSex(data.sex);
       setId(data.id);
+      setDescription(data.description);
     }
   }, []);
 
@@ -44,7 +47,16 @@ export default function Form({ data }: FormParams): JSX.Element {
     setLoading(true);
 
     if (anilha && sex) {
-      if (validateValues({ anilha, photo, anilhaFather, anilhaMother, sex })) {
+      if (
+        validateValues({
+          anilha,
+          photo,
+          anilhaFather,
+          anilhaMother,
+          sex,
+          description,
+        })
+      ) {
         const formData = new FormData();
         formData.append('anilha', anilha);
         formData.append('sex', sex);
@@ -52,6 +64,7 @@ export default function Form({ data }: FormParams): JSX.Element {
         if (photo) formData.append('photo', photo);
         if (anilhaFather) formData.append('anilhaFather', anilhaFather);
         if (anilhaMother) formData.append('anilhaMother', anilhaMother);
+        if (description) formData.append('description', description);
 
         try {
           const response = await fetch(`${API_URL}/pigeon`, {
@@ -92,6 +105,7 @@ export default function Form({ data }: FormParams): JSX.Element {
     anilhaFather,
     anilhaMother,
     sex,
+    description,
   }: ReqData): boolean => {
     const allowedExt = ['.jpg', '.jpeg', '.png'];
     const errors = [];
@@ -111,6 +125,16 @@ export default function Form({ data }: FormParams): JSX.Element {
 
     if (sex !== 'M' && sex !== 'F') {
       errors.push('Indique se o pombo é macho ou fêmea');
+    }
+
+    if (description) {
+      if (typeof description !== 'string') {
+        errors.push('Descrição deve ser um texto');
+      } else {
+        if (description.length > 90) {
+          errors.push('Descrição muito grande');
+        }
+      }
     }
 
     if (errors[0]) {
@@ -212,6 +236,15 @@ export default function Form({ data }: FormParams): JSX.Element {
             </p>
           </>
         )}
+        <p className={styles.form_p}>
+          <textarea
+            placeholder="Anotação (opcional)"
+            className={styles.text_area}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+          ></textarea>
+        </p>
         <p className={styles.form_p}>
           <button
             type="submit"

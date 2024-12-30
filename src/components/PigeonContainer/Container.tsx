@@ -23,6 +23,13 @@ export default function Container({ pigeon }: ContainerProps): JSX.Element {
         <div>ANILHA: {pigeon.anilha}</div>
         <div>{pigeon.sex === 'F' ? 'Fêmea' : 'Macho'}</div>
       </div>
+
+      {pigeon.description && (
+        <div className={styles.div}>
+          <p className={styles.description}>Anotação: {pigeon.description}</p>
+        </div>
+      )}
+
       <div className={styles.p}>
         <div className={styles.parent}>
           <Photo anilha={pigeon.father_anilha} />
