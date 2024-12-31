@@ -36,6 +36,7 @@ export default function Register({
           router.push('/');
         } else {
           const { pigeon }: { pigeon: Pigeon } = await response.json();
+          console.log(`AAAAAAAAAAAAAAAAAAAAA ${pigeon.description}`);
           setPigeon(pigeon);
         }
       } catch (err) {

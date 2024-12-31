@@ -104,6 +104,7 @@ export default async function Page({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ anilha: params.anilha }),
+      cache: 'no-cache', // This forces the fetch to not use cache
     });
 
     if (!response.ok) {
