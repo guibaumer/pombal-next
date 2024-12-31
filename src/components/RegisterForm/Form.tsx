@@ -243,6 +243,7 @@ export default function Form({ data }: FormParams): JSX.Element {
             onChange={(e) => {
               setDescription(e.target.value);
             }}
+            value={description}
           ></textarea>
         </p>
         <p className={styles.form_p}>
