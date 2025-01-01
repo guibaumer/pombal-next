@@ -21,7 +21,7 @@ type FormParams = {
 
 export default function Form({ data }: FormParams): JSX.Element {
   const [anilha, setAnilha] = useState('');
-  const [photo, setPhoto] = useState<File>();
+  const [photo, setPhoto] = useState<File | undefined>(undefined);
   const [actualPhoto, setActualPhoto] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [anilhaFather, setAnilhaFather] = useState('');
@@ -62,9 +62,12 @@ export default function Form({ data }: FormParams): JSX.Element {
         formData.append('sex', sex);
         if (id) formData.append('id', id);
         if (photo) formData.append('photo', photo);
-        if (anilhaFather) formData.append('anilhaFather', anilhaFather);
-        if (anilhaMother) formData.append('anilhaMother', anilhaMother);
-        if (description) formData.append('description', description);
+        // if (anilhaFather) formData.append('anilhaFather', anilhaFather);
+        // if (anilhaMother) formData.append('anilhaMother', anilhaMother);
+        formData.append('anilhaFather', anilhaFather);
+        formData.append('anilhaMother', anilhaMother);
+
+        formData.append('description', description);
 
         try {
           const response = await fetch(`${API_URL}/pigeon`, {
