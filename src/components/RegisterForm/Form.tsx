@@ -62,10 +62,10 @@ export default function Form({ data }: FormParams): JSX.Element {
         formData.append('sex', sex);
         if (id) formData.append('id', id);
         if (photo) formData.append('photo', photo);
-        // if (anilhaFather) formData.append('anilhaFather', anilhaFather);
-        // if (anilhaMother) formData.append('anilhaMother', anilhaMother);
-        formData.append('anilhaFather', anilhaFather);
-        formData.append('anilhaMother', anilhaMother);
+        if (anilhaFather) formData.append('anilhaFather', anilhaFather);
+        if (anilhaMother) formData.append('anilhaMother', anilhaMother);
+        // formData.append('anilhaFather', anilhaFather);
+        // formData.append('anilhaMother', anilhaMother);
 
         formData.append('description', description);
 
